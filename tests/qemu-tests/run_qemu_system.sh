@@ -56,7 +56,7 @@ KERNEL_TYPE=$(echo ${KERNEL_NAME} | sed "s/-${KERNEL_VERSION}-${ARCH}//")
 if [[ "${ARCH}" == @(arm64|aarch64) ]]; then
     ARCH=arm64
     QEMU_BIN=qemu-system-aarch64
-    CMDLINE="console=ttyAMA0 root=/dev/vda nokaslr ${CMDLINE}"
+    CMDLINE="console=ttyAMA0 root=/dev/vda nokaslr kpti=0 ${CMDLINE}"
 
     QEMU_ARGS=(
         -cpu max
@@ -64,7 +64,7 @@ if [[ "${ARCH}" == @(arm64|aarch64) ]]; then
     )
 elif [ "$ARCH" == "x86_64" ]; then
     QEMU_BIN=qemu-system-x86_64
-    CMDLINE="8250.nr_uarts=1 console=ttyS0 root=/dev/vda nokaslr ${CMDLINE}"
+    CMDLINE="8250.nr_uarts=1 console=ttyS0 root=/dev/vda nokaslr nopti ${CMDLINE}"
     QEMU_ARGS=()
 fi
 
